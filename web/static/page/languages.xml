@@ -189,6 +189,12 @@
 		<zh-CN>访问端命令</zh-CN>
 		<en-US>Access command</en-US>
 	</lang>
+
+	<lang id="word-quicklycommand">
+		<zh-CN>快捷启动命令</zh-CN>
+		<en-US>Quickly command</en-US>
+	</lang>
+
 	<lang id="word-commandclient">
 		<zh-CN>客户端命令</zh-CN>
 		<en-US>Command</en-US>
@@ -279,13 +285,13 @@
 		<en-US>HTTP port</en-US>
 	</lang>
 	<lang id="word-httpscert">
-		<zh-CN>HTTPS 证书（pem格式）</zh-CN>
+		<zh-CN>HTTPS 证书（或证书路径）</zh-CN>
 		<en-US>HTTPS cert</en-US>
 	</lang>
 	<lang id="word-https">HTTPS
 	</lang>
 	<lang id="word-httpskey">
-		<zh-CN>HTTPS 密钥（key格式）</zh-CN>
+		<zh-CN>HTTPS 密钥（或秘钥路径）</zh-CN>
 		<en-US>HTTPS key</en-US>
 	</lang>
 	<lang id="word-httpsport">
@@ -390,6 +396,12 @@
 		<zh-CN>端口</zh-CN>
 		<en-US>Port</en-US>
 	</lang>
+
+	<lang id="word-accessaddress">
+		<zh-CN>访问地址</zh-CN>
+		<en-US>Access address</en-US>
+	</lang>
+
 	<lang id="word-proxytolocal">
 		<zh-CN>代理到服务器本地</zh-CN>
 		<en-US>Proxy to server local</en-US>
@@ -738,6 +750,11 @@
 	<lang id="word-blackip">
 		<zh-CN>IP黑名单</zh-CN>
 		<en-US>IP Black List</en-US>
+	</lang>
+
+	<lang id="word-createtime">
+		<zh-CN>创建时间</zh-CN>
+		<en-US>Create Time</en-US>
 	</lang>
 
 	<lang id="word-lastonlinetime">

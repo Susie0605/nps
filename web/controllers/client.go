@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"strings"
+	"time"
 )
 
 type ClientController struct {
@@ -71,6 +72,7 @@ func (s *ClientController) Add() {
 				FlowLimit:  int64(s.GetIntNoErr("flow_limit")),
 			},
 			BlackIpList: RemoveRepeatedElement(strings.Split(s.getEscapeString("blackiplist"), "\r\n")),
+			CreateTime:  time.Now().Format("2006-01-02 15:04:05"),
 		}
 		fmt.Printf("添加客户端_1" + t.WebUserName)
 		if err := file.GetDb().NewClient(t); err != nil {
