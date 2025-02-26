@@ -5,6 +5,7 @@ import (
 	"ehang.io/nps/lib/file"
 	"ehang.io/nps/lib/rate"
 	"ehang.io/nps/server"
+	"fmt"
 	"github.com/astaxie/beego"
 	"strings"
 )
@@ -37,13 +38,15 @@ func (s *ClientController) List() {
 	s.AjaxTable(list, cnt, cnt, cmd)
 }
 
-//添加客户端
+// 添加客户端
 func (s *ClientController) Add() {
 	if s.Ctx.Request.Method == "GET" {
+		fmt.Printf("添加客户端_0")
 		s.Data["menu"] = "client"
 		s.SetInfo("add client")
 		s.display()
 	} else {
+		fmt.Printf("添加客户端_1")
 		id := int(file.GetDb().JsonDb.GetClientId())
 		t := &file.Client{
 			VerifyKey: s.getEscapeString("vkey"),
@@ -69,6 +72,7 @@ func (s *ClientController) Add() {
 			},
 			BlackIpList: RemoveRepeatedElement(strings.Split(s.getEscapeString("blackiplist"), "\r\n")),
 		}
+		fmt.Printf("添加客户端_1" + t.WebUserName)
 		if err := file.GetDb().NewClient(t); err != nil {
 			s.AjaxErr(err.Error())
 		}
@@ -90,7 +94,7 @@ func (s *ClientController) GetClient() {
 	}
 }
 
-//修改客户端
+// 修改客户端
 func (s *ClientController) Edit() {
 	id := s.GetIntNoErr("id")
 	if s.Ctx.Request.Method == "GET" {
@@ -172,7 +176,7 @@ func RemoveRepeatedElement(arr []string) (newArr []string) {
 	return
 }
 
-//更改状态
+// 更改状态
 func (s *ClientController) ChangeStatus() {
 	id := s.GetIntNoErr("id")
 	if client, err := file.GetDb().GetClient(id); err == nil {
@@ -185,7 +189,7 @@ func (s *ClientController) ChangeStatus() {
 	s.AjaxErr("modified fail")
 }
 
-//删除客户端
+// 删除客户端
 func (s *ClientController) Del() {
 	id := s.GetIntNoErr("id")
 	if err := file.GetDb().DelClient(id); err != nil {
