@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"ehang.io/nps/lib/nps_mux"
+	"github.com/pires/go-proxyproto"
 	"net"
 	"net/http"
 	"strconv"
@@ -219,6 +220,47 @@ func (s *TRPClient) handleChan(src net.Conn) {
 		src.Close()
 	} else {
 		logs.Trace("new %s connection with the goal of %s, remote address:%s", lk.ConnType, lk.Host, lk.RemoteAddr)
+
+		if lk.ProtoVersion == "V1" || lk.ProtoVersion == "V2" {
+			var addr = targetConn.RemoteAddr()
+			if lk.RemoteAddr != "" {
+				s := strings.Split(lk.RemoteAddr, ":")[1]
+				port, _ := strconv.Atoi(s)
+				addr = &net.TCPAddr{
+					IP:   net.ParseIP(strings.Split(lk.RemoteAddr, ":")[0]),
+					Port: port,
+				}
+			}
+
+			var version byte
+
+			if lk.ProtoVersion == "V1" {
+				version = 1
+			} else if lk.ProtoVersion == "V2" {
+				version = 2
+			}
+
+			transportProtocol := proxyproto.TCPv4
+			if strings.Contains(addr.String(), ".") {
+				transportProtocol = proxyproto.TCPv4
+			} else {
+				transportProtocol = proxyproto.TCPv6
+			}
+
+			header := &proxyproto.Header{
+				Command:           proxyproto.PROXY,
+				SourceAddr:        addr,
+				DestinationAddr:   targetConn.RemoteAddr(),
+				Version:           version,
+				TransportProtocol: transportProtocol,
+			}
+
+			_, err2 := header.WriteTo(targetConn)
+			if err2 != nil {
+				logs.Error(err2)
+			}
+		}
+
 		conn.CopyWaitGroup(src, targetConn, lk.Crypt, lk.Compress, nil, nil, false, nil, nil)
 	}
 }
