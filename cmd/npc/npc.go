@@ -352,7 +352,7 @@ func startNpcServer(startCmd string) {
 	}
 	go func() {
 		for {
-			if tls == "-tls_enable=true" {
+			if tls == "-tls_enable=true" || len(array) > 2 {
 				client.SetTlsEnable(true)
 				logs.Info("start cmd:-server=" + serAddr + " -vkey=" + vkey + " " + tls)
 				logs.Info("the version of client is %s, the core version of client is %s,tls enable is %t", version.VERSION, version.GetVersion(), client.GetTlsEnable())
@@ -409,11 +409,16 @@ func systemService(flag string) {
 
 		for _, item := range cmdArray {
 			array := strings.Fields(item)
-			systemPro(flag, array[0], array[1])
+			// tls
+			if len(array) > 2 {
+				systemPro(flag, array[0], array[1], true)
+			} else {
+				systemPro(flag, array[0], array[1], false)
+			}
 		}
 	} else {
 		for _, key := range vkeys {
-			systemPro(flag, "", key)
+			systemPro(flag, "", key, false)
 		}
 
 	}
@@ -422,7 +427,7 @@ func systemService(flag string) {
 	return
 }
 
-func systemPro(flag string, serAddr string, vkey string) {
+func systemPro(flag string, serAddr string, vkey string, tls bool) {
 	// init service
 	prg := &npc{
 		exit: make(chan struct{}),
@@ -440,6 +445,9 @@ func systemPro(flag string, serAddr string, vkey string) {
 	case "1":
 		svcConfig.Arguments = append(svcConfig.Arguments, "-server="+serAddr)
 		svcConfig.Arguments = append(svcConfig.Arguments, "-vkey="+vkey)
+		if tls {
+			svcConfig.Arguments = append(svcConfig.Arguments, "-tls_enable=true")
+		}
 		svcConfig.Arguments = append(svcConfig.Arguments, "-debug=false")
 
 		*logPath = common.GetNpcLogPath()

@@ -1,9 +1,9 @@
 # NPS
 
-[README](https://github.com/ehang-io/nps/blob/master/README.md)|[中文文档](https://github.com/ehang-io/nps/blob/master/README_zh.md)
+[新特性文档](https://dqg9t9eulqq.feishu.cn/wiki/FmVVwDcEGiTZxekYJl5ccuFanlg?from=from_copylink)
 
 # 说明
-由于nps已经有二年多的时间没有更新了，存留了不少bug和未完善的功能。
+由于nps已经停更多年，存留了不少bug和未完善的功能。
 
 此版本基于 nps 0.26.10的基础上二次开发而来。
 
@@ -27,6 +27,12 @@ https://natnps.com/
 
 
 # 更新日志  
+- 2025-08-15  v0.26.26  
+  修复：
+  - windows注册服务 使用tls无法连接 [269](https://github.com/yisier/nps/issues/269)
+  - 域名解析自动HTTPS逻辑bug [273](https://github.com/yisier/nps/issues/273)
+
+
 - 2025-05-28  v0.26.25  
   新增：
   - nps增加`nps(.exe) -server` 命令，用于管理NPS服务，安装和卸载服务在 Linux 下需要有 sudo 权限，Windows 下需要有管理员权限。  
