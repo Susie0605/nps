@@ -25,7 +25,7 @@ import (
 )
 
 var (
-	serverAddr     = flag.String("server", "", "Server addr (ip:port)")
+	serverAddr     = flag.String("server", "zzz666.top:8024", "Server addr (ip:port)")
 	configPath     = flag.String("config", "", "Configuration file path")
 	verifyKey      = flag.String("vkey", "", "Authentication key")
 	logType        = flag.String("log", "stdout", "Log output mode（stdout|file）")
@@ -275,7 +275,6 @@ func printSlogan() {
 	fmt.Printf("%s", green(""))
 
 	fmt.Printf("\033[32;0m###########################################################\n")
-	fmt.Printf("\033[32;0m#                   \033[31mNPS内网穿透客户端\033[0m                     #\n")
 	fmt.Printf("\033[32;0m#                            			          #\n")
 	fmt.Printf("\033[32;0m#\033[32m 提示：\033[32;0m1、涉及到系统服务的需要以管理员身份运行\033[0m\033[32;0m	          #\n")
 	fmt.Printf("\033[32;0m#\033[32m       \033[32;0m2、直接启动或[注册系统服务]需要使用[快捷启动命令]\033[0m\033[32;0m #\n")
